@@ -1,0 +1,31 @@
+package net.media.training.designpattern.builder;
+
+import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+
+
+/**
+ * Created by IntelliJ IDEA.
+ * User: path
+ * Date: Jul 19, 2011
+ * Time: 9:13:33 PM
+ * To change this template use File | Settings | File Templates.
+ */
+public class PeopleSourceTest {
+
+    @Test
+    public void TestPeopleXml() {
+        PersonBuilder personBuilder = new PersonBuilder();
+        List<Person> persons = new ArrayList<Person>();
+        persons.add(personBuilder.setName("Wu").setCity("Shanghai").setCountry("China").setId(25).build());
+        persons.add(personBuilder.setName("Kobayashi").setCity("Kanto").setCountry("Japan").setId(200).build());
+        persons.add(personBuilder.setName("Vasily").setCity("Leningrad").setCountry("Russia").setId(1).build());
+        String actual = PeopleDataSource.getPeopleXml(persons);
+
+        assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?><People number=\"3\"><Person id=\"25\" name=\"Wu\"><Address><City>Shanghai</City><Country>China</Country></Address></Person><Person id=\"200\" name=\"Kobayashi\"><Address><City>Kanto</City><Country>Japan</Country></Address></Person><Person id=\"1\" name=\"Vasily\"><Address><City>Leningrad</City><Country>Russia</Country></Address></Person></People>", actual);
+    }
+}
