@@ -37,7 +37,7 @@ public class Directory implements FileSystemEntity {
     public void delete() {
         while (!children.isEmpty()) {
             FileSystemEntity child = children.get(0);
-            child.getParent().removeEntry(child);
+            child.delete();
         }
         if (parent != null) {
             parent.removeEntry(this);
