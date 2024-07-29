@@ -26,7 +26,7 @@ public class PhoneMaker {
         motherBoard.attachBattery(phoneFactory.getBattery());
         motherBoard.attachProcessor(phoneFactory.getProcessor());
 
-        phone.attachMotherBoard(phoneFactory.getMotherBoard());
+        phone.attachMotherBoard(motherBoard);
         phone.attachScreen(phoneFactory.getScreen());
 
         return phone;
