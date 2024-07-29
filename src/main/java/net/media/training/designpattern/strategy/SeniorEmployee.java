@@ -7,25 +7,18 @@ package net.media.training.designpattern.strategy;
  * Time: 1:35:40 PM
  * To change this template use File | Settings | File Templates.
  */
-public class SeniorEmployee extends GenericEmployee {
+public class SeniorEmployee extends CompanyMember {
     private int setMaxBonus;
+    private final BoundCheckerStrategy maxBonusStrategy;
 
-    @Override
-    public void setSalary(int salary) {
-        super.setSalary(salary);
-        atLeast(salary, 200);
-        this.salary = salary;
-    }
-
-    @Override
-    public void setMonthsSpent(int months) {
-        super.setMonthsSpent(months);
-        atLeast(months, 60);
-        this.monthsSpent = months;
+    public SeniorEmployee() {
+        maxBonusStrategy = new LowerBoundBoundCheckerStrategy(1);
+        salaryStrategy = new RangeBoundCheckerStrategy(200, 1000);
+        monthsStrategy = new LowerBoundBoundCheckerStrategy(60);
     }
 
     public void setMaxBonus(int bonus) {
-        atLeast(bonus, 1);
+        maxBonusStrategy.validate(bonus);
         this.setMaxBonus = bonus;
     }
 }

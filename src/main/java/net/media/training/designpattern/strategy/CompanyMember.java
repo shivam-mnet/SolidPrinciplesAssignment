@@ -13,36 +13,31 @@ public abstract class CompanyMember {
     protected int salary;
     protected int monthsSpent;
 
-    protected void validateLength(String val, int allowedLength) {
-        if (val.length() > allowedLength)
-            throw new RuntimeException("Invalid length:" + allowedLength);
-    }
+    protected BoundCheckerStrategy salaryStrategy;
+    protected BoundCheckerStrategy monthsStrategy;
+    protected StringValidationStrategy nameValidationStrategy;
 
-    protected void notEmpty(String val) {
-        if (val == null || val.length() == 0)
-            throw new RuntimeException("not empty check failed for value:" + val);
-    }
-
-    protected void atLeast(int val, int min) {
-        if (val < min)
-            throw new RuntimeException("at least check failed:" + val);
-    }
-
-    protected void atMost(int val, int max) {
-        if (val > max)
-            throw new RuntimeException("at least check failed:" + val);
+    public CompanyMember() {
+        nameValidationStrategy = new LengthStringValidationStrategy(new RangeBoundCheckerStrategy(0, 50));
     }
 
     public void setName(String name) {
-        validateLength(name, 50);
+        nameValidationStrategy.validate(name);
         this.name = name;
     }
 
     public void setSalary(int salary) {
-        atLeast(salary, 1);
+        salaryStrategy.validate(salary);
+        this.salary = salary;
+    }
+
+    public void setMonthsSpent(int months) {
+        monthsStrategy.validate(months);
+        this.monthsSpent = months;
     }
 
     public void setManagerName(String name) {
-        validateLength(name, 50);
+        nameValidationStrategy.validate(name);
+        this.mgrName = name;
     }
 }

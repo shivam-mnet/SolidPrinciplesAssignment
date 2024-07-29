@@ -1,5 +1,7 @@
 package net.media.training.designpattern.adapter;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 /**
@@ -14,15 +16,15 @@ public class AdapterTest {
     /*Uncomment the code and make it compilable*/
     @Test
     public void testGetDisplayWallOfShame() throws Exception {
-//        FrontDoorRegister frontDoorRegister = new FrontDoorRegister(new ThirdPartyLeaveRecord());
-//        assertEquals("Super Commando Dhruv has been the most absent employee, shame!", frontDoorRegister.getDisplayWallOfShame());
+        FrontDoorRegister frontDoorRegister = new FrontDoorRegister(new LeaveRecordAdapter());
+        assertEquals("Super Commando Dhruv has been the most absent employee, shame!", frontDoorRegister.getDisplayWallOfShame());
     }
 
     @Test
     public void salaryDisbersmentTest() {
-//      SalaryDisberser salaryDisberser = new SalaryDisberser();
-//      assertEquals(10000, salaryDisberser.salary("James Bond"));
-//      assertEquals(8000, salaryDisberser.salary("Austin Powers"));
-//      assertEquals(5000, salaryDisberser.salary("Super Commando Dhruv"));
+      SalaryDisberser salaryDisberser = new SalaryDisberser(new LeaveRecordAdapter());
+      assertEquals(10000, salaryDisberser.salary("James Bond"));
+      assertEquals(8000, salaryDisberser.salary("Austin Powers"));
+      assertEquals(5000, salaryDisberser.salary("Super Commando Dhruv"));
     }
 }

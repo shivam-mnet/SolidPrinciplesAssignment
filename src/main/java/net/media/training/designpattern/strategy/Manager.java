@@ -9,19 +9,16 @@ package net.media.training.designpattern.strategy;
  */
 public class Manager extends CompanyMember {
     private String managementBand;
+    private final StringValidationStrategy managementBandStrategy;
 
-    @Override
-    public void setSalary(int salary) {
-        super.setSalary(salary);
-        this.salary = salary;
-    }
-
-    public void setMonthsSpent(int months) {
-        this.monthsSpent = months;
+    public Manager() {
+        salaryStrategy = new LowerBoundBoundCheckerStrategy(1);
+        monthsStrategy = new LowerBoundBoundCheckerStrategy(0);
+        managementBandStrategy = new LengthStringValidationStrategy(new LowerBoundBoundCheckerStrategy(0));
     }
 
     public void setManagementBand(String managementBand) {
-        notEmpty(managementBand);
+        managementBandStrategy.validate(managementBand);
         this.managementBand = managementBand;
     }
 }
